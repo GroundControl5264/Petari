@@ -3,6 +3,8 @@
 #include <limits>
 #include <revolution.h>
 
+extern const s16 sIIRCutoff[128][4];
+
 namespace JASCalc {
     void imixcopy(const s16*, const s16*, s16*, u32);
     void bcopyfast(const void*, void*, u32);

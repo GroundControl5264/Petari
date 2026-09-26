@@ -6,8 +6,6 @@
 #include "JSystem/JMath/random.hpp"
 #include "JSystem/JSupport/JSupport.hpp"
 
-extern const s16 sIIRCutoff[128][4];
-
 JASSeqParser::Command JASSeqParser::sCmdInfo[0x60] = {{nullptr},
                                                       {nullptr},
                                                       {nullptr},
