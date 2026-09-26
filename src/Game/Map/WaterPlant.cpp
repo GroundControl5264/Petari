@@ -45,7 +45,6 @@ namespace {
     inline WaterPlantDrawInit* getWaterPlantDrawInit() {
         return MR::getSceneObj< WaterPlantDrawInit >(SceneObj_WaterPlantDrawInit);
     }
-
 };  // namespace
 
 WaterPlant::WaterPlant(const char* pName)
@@ -78,6 +77,7 @@ void WaterPlant::initAfterPlacement() {
 void WaterPlant::movement() {
     if (mIsSpin) {
         s32 count = 0;
+
         for (int i = 0; i < mPlantNum; i++) {
             if (mPlantDataArray[i].mSpinWaveTimer >= 0) {
                 count++;
@@ -326,12 +326,15 @@ void WaterPlantDrawInit::loadTex(int tex) {
 
 void WaterPlantDrawInit::updateSwingPos() {
     f32 angle = 0.0f;
+
     for (int i = 0; i < ::sSwingPosTableSize; i++) {
         mSwingPosTable[i] = ::sSwingWidth * MR::sin(mAngleOffset + angle);
         angle += 0.2f;
     }
 }
 
+#pragma push
+#pragma opt_propagation off
 void WaterPlantDrawInit::initDraw() const {
     GXSetVtxAttrFmt(GX_VTXFMT0, GX_VA_POS, GX_POS_XYZ, GX_F32, 0);
     GXSetVtxAttrFmt(GX_VTXFMT0, GX_VA_TEX0, GX_POS_XYZ, GX_F32, 0);
@@ -358,5 +361,7 @@ void WaterPlantDrawInit::initDraw() const {
     GXSetZCompLoc(GX_FALSE);
     GXSetCullMode(GX_CULL_NONE);
 
-    GXSetFog(GX_FOG_LIN, ::sFogStartZ, ::sFogEndZ, MR::getNearZ(), MR::getFarZ(), (GXColor){0x32, 0x32, 0x96, 0xFF});
+    static const GXColor fogColor = {0x32, 0x32, 0x96, 0xFF};
+    GXSetFog(GX_FOG_LIN, ::sFogStartZ, ::sFogEndZ, MR::getNearZ(), MR::getFarZ(), fogColor);
 }
+#pragma pop

@@ -5,19 +5,18 @@
 #include "Game/Scene/SceneObjHolder.hpp"
 #include "Game/Util.hpp"
 
+void SphereSelector_FORCE_MATCH_SDATA2() {
+    (void)1.0f;
+    (void)0.0f;
+}
+
 namespace {
-    SphereSelector* getSphereSelector() {
-        return MR::getSceneObj< SphereSelector >(SceneObj_SphereSelector);
+    inline bool isWaitingForClick(const SphereSelector* pSelector) {
+        return pSelector->_A4 < 0;
     }
 
-    void getHandleMtx(TPos3f* pPos) {
-        pPos->identity();
-        if (MR::isExistSceneObj(SceneObj_SphereSelector)) {
-            SphereSelectorHandle* pSelectorHandle = ::getSphereSelector()->mHandle;
-            if (pSelectorHandle != nullptr && !MR::isDead(pSelectorHandle)) {
-                pPos->set(pSelectorHandle->getBaseMtx());
-            }
-        }
+    SphereSelector* getSphereSelector() {
+        return MR::getSceneObj< SphereSelector >(SceneObj_SphereSelector);
     }
 };  // namespace
 
@@ -164,7 +163,7 @@ void SphereSelector::exeSelectWait() {
         MR::startStarPointerModeSphereSelectorOnReaction(this);
     }
 
-    if (_A4 < 0) {
+    if (::isWaitingForClick(this)) {
         if (mPointingTarget != nullptr && isDecideTrigger()) {
             sendSelectedMsgAndSetTarget(mPointingTarget);
         } else if (isButtonAPressed()) {
@@ -174,6 +173,7 @@ void SphereSelector::exeSelectWait() {
         }
     } else {
         _A4++;
+
         if (isMoveClickedPos() || _A4 > 30) {
             sendSelectedMsgAndSetTarget(mHandle);
             _A4 = -1;
@@ -233,6 +233,19 @@ void SphereSelector::exeConfirmCancel() {
 
     MR::setNerveAtStep(this, GET_NERVE(SphereSelector, SphereSelectorNrvSelectWait), SphereSelectorFunction::getConfirmStartCancelFrame());
 }
+
+namespace {
+    void getHandleMtx(TPos3f* pPos) {
+        pPos->identity();
+
+        if (MR::isExistSceneObj(SceneObj_SphereSelector)) {
+            SphereSelectorHandle* pSelectorHandle = ::getSphereSelector()->mHandle;
+            if (pSelectorHandle != nullptr && !MR::isDead(pSelectorHandle)) {
+                pPos->set(pSelectorHandle->getBaseMtx());
+            }
+        }
+    }
+}  // namespace
 
 void SphereSelector::exeSelectStart() {
     if (MR::isFirstStep(this)) {
@@ -439,6 +452,7 @@ TVec3f& SphereSelectorFunction::getSelectedActorTrans() {
 void SphereSelectorFunction::calcOffsetPos(TVec3f* pDst, const TVec3f& rVec2, const TVec3f& rVec3, const TVec3f& rVec4, const TVec3f& rVec5) {
     TVec3f vec(rVec4);
     TPos3f mtx;
+
     if (MR::normalizeOrZero(&vec) || MR::isSameDirection(rVec5, vec)) {
         vec.set< f32 >(0.0f, 0.0f, 1.0f);
     }
