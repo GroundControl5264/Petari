@@ -28,6 +28,14 @@ class JKRArchive;
 class JKRSolidHeap;
 class SpkSystem;
 
+extern const char sAudioResFile[];
+extern const char sJaiSeqArc[];
+extern const char sJaiChordArc[];
+extern const char sJaiMeArc[];
+extern const char sJaiRemixArc[];
+extern const char sJaiAudioArc[];
+extern const char sJaiSeqResArc[];
+
 class AudSystem : public JAUSoundMgr {
 public:
     enum MenuState {

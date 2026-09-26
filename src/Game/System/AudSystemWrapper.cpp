@@ -14,12 +14,6 @@
 #include <JSystem/JKernel/JKRMemArchive.hpp>
 #include <JSystem/JKernel/JKRSolidHeap.hpp>
 
-extern char const sAudioResFile[];
-extern char const sJaiSeqArc[];
-extern char const sJaiChordArc[];
-extern char const sJaiMeArc[];
-extern char const sJaiRemixArc[];
-
 AudSystemWrapper::AudSystemWrapper(JKRSolidHeap* pSolidHeap, JKRHeap* pHeap) : mIsResetDone() {
     // FIXME: out-of-order assignment to mIsResetDone
     // https://decomp.me/scratch/vUG77
