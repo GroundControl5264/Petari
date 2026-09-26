@@ -31,10 +31,15 @@ public:
     static void memoryErrorCallback(void*, u32, int);
     void checkRestMemory();
 
-    /* 0x0 */ JKRExpHeap* mStationedHeapNapa;
-    /* 0x4 */ JKRExpHeap* mStationedHeapGDDR;
-    /* 0x8 */ JKRExpHeap* mGameHeapNapa;
-    /* 0xC */ JKRExpHeap* mGameHeapGDDR;
+    // used in GameSystemObjHolder::initAudio()
+    JKRSolidHeap* getAudSystemHeap() {
+        return mAudSystemHeap;
+    }
+
+    /* 0x00 */ JKRExpHeap* mStationedHeapNapa;
+    /* 0x04 */ JKRExpHeap* mStationedHeapGDDR;
+    /* 0x08 */ JKRExpHeap* mGameHeapNapa;
+    /* 0x0C */ JKRExpHeap* mGameHeapGDDR;
     /* 0x10 */ JKRHeap* mFileCacheHeap;
     /* 0x14 */ JKRSolidHeap* mSceneHeapNapa;
     /* 0x18 */ JKRSolidHeap* mSceneHeapGDDR;

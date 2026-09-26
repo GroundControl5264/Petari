@@ -714,19 +714,18 @@ bool HomingKiller::isChasing() const {
 
     return false;
 }
-
+#pragma opt_propagation off
 void HomingKiller::exeAppear() {
-    // FIXME: type check comparison count leading zeros "optimization"
-    // https://decomp.me/scratch/lM12w
-
     if (MR::isFirstStep(this)) {
         MR::startBck(this, "Start");
-        if (mType == Type_MagnumKiller) {  // FIXME
+        bool a1 = mType == Type_MagnumKiller;
+        if (!a1) {
             MR::startBpk(this, "Move");
             MR::startBrk(this, "Move");
         }
 
-        if (mType == Type_Torpedo) {  // FIXME
+        bool a2 = mType == Type_Torpedo;
+        if (a2) {
             MR::startBck(mPropeller, "RotateTorpedo");
             mTorpedoLight->appear();
             MR::startBck(mTorpedoLight, "Appear");
@@ -765,7 +764,8 @@ void HomingKiller::exeAppear() {
         setBckRate(1.0f, true);
         MR::emitEffect(this, "Shoot");
         MR::validateShadow(this, nullptr);
-        if (mType == Type_MagnumKiller) {  // FIXME
+        bool a3 = mType == Type_MagnumKiller;
+        if (a3) {
             MR::startSound(this, "SE_EM_MAGKILLER_FIRING");
             setNerve(GET_NERVE(HomingKiller, HomingKillerNrvMove));
         } else {
@@ -774,6 +774,7 @@ void HomingKiller::exeAppear() {
         }
     }
 }
+#pragma opt_propagation on
 
 void HomingKiller::exeMoveStart() {
     if (processMove() && !tryFreeze(GET_NERVE(HomingKiller, HomingKillerNrvMoveStart)) && !tryChaseStart() && MR::isBckStopped(this)) {

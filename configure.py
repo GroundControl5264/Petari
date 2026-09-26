@@ -274,8 +274,8 @@ cflags_jsys_pch = [
     "-enum int",
     "-fp hardware",
     "-Cpp_exceptions off",
-    #"-O4,s",
-    #"-inline auto",
+    # "-O4,s",
+    # "-inline auto",
     '-pragma "cats off"',
     '-pragma "warn_notinlined off"',
     "-maxerrors 1",
@@ -285,7 +285,7 @@ cflags_jsys_pch = [
     "-enc SJIS",
     "-sdata 4",
     "-sdata2 4",
-    #"-ipa file",
+    # "-ipa file",
     "-sym on",
     "-i include",
     "-i libs/JSystem/include",
@@ -745,7 +745,9 @@ config.libs = [
         "AreaObj",
         [
             Object(NonMatching, "Game/AreaObj/AreaForm.cpp"),
-            Object(Matching, "Game/AreaObj/AreaFormDrawer.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/AreaObj/AreaFormDrawer.cpp", extra_cflags=["-sym off"]
+            ),
             Object(NonMatching, "Game/AreaObj/AreaObj.cpp"),
             Object(Matching, "Game/AreaObj/AreaObjContainer.cpp"),
             Object(Matching, "Game/AreaObj/AreaObjFollower.cpp"),
@@ -763,13 +765,21 @@ config.libs = [
                 "Game/AreaObj/BloomArea.cpp",
                 cflags=[*cflags_game, "-sym off"],
             ),
-            Object(Matching, "Game/AreaObj/CameraRepulsiveArea.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching,
+                "Game/AreaObj/CameraRepulsiveArea.cpp",
+                extra_cflags=["-sym off"],
+            ),
             Object(Matching, "Game/AreaObj/ChangeBgmCube.cpp"),
             Object(NonMatching, "Game/AreaObj/CollisionArea.cpp"),
             Object(Matching, "Game/AreaObj/CubeCamera.cpp"),
             Object(Matching, "Game/AreaObj/DeathArea.cpp"),
             Object(Matching, "Game/AreaObj/DepthOfFieldArea.cpp"),
-            Object(Matching, "Game/AreaObj/FollowCollisionArea.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching,
+                "Game/AreaObj/FollowCollisionArea.cpp",
+                extra_cflags=["-sym off"],
+            ),
             Object(Matching, "Game/AreaObj/GlaringLightArea.cpp"),
             Object(Matching, "Game/AreaObj/HazeCube.cpp"),
             Object(Matching, "Game/AreaObj/ImageEffectArea.cpp"),
@@ -1184,10 +1194,16 @@ config.libs = [
         [
             Object(Matching, "Game/Demo/AstroDomeDemoStarter.cpp"),
             Object(Matching, "Game/Demo/AstroDemoFunction.cpp"),
-            Object(Matching, "Game/Demo/DemoActionKeeper.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/Demo/DemoActionKeeper.cpp", extra_cflags=["-sym off"]
+            ),
             Object(Matching, "Game/Demo/DemoCameraFunction.cpp"),
-            Object(Matching, "Game/Demo/DemoCameraKeeper.cpp", extra_cflags=["-sym off"]),
-            Object(NonMatching, "Game/Demo/DemoCastGroup.cpp", extra_cflags=["-inline off"]),
+            Object(
+                Matching, "Game/Demo/DemoCameraKeeper.cpp", extra_cflags=["-sym off"]
+            ),
+            Object(
+                NonMatching, "Game/Demo/DemoCastGroup.cpp", extra_cflags=["-inline off"]
+            ),
             Object(Matching, "Game/Demo/DemoCastGroupHolder.cpp"),
             Object(Matching, "Game/Demo/DemoCastSubGroup.cpp"),
             Object(Matching, "Game/Demo/DemoCtrlBase.cpp"),
@@ -1201,14 +1217,24 @@ config.libs = [
             Object(Matching, "Game/Demo/DemoPlayerKeeper.cpp"),
             Object(Matching, "Game/Demo/DemoPositionController.cpp"),
             Object(Matching, "Game/Demo/DemoSimpleCastHolder.cpp"),
-            Object(Matching, "Game/Demo/DemoSoundKeeper.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/Demo/DemoSoundKeeper.cpp", extra_cflags=["-sym off"]
+            ),
             Object(Matching, "Game/Demo/DemoStartRequestHolder.cpp"),
-            Object(Matching, "Game/Demo/DemoStartRequestUtil.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching,
+                "Game/Demo/DemoStartRequestUtil.cpp",
+                extra_cflags=["-sym off"],
+            ),
             Object(Matching, "Game/Demo/DemoSubPartKeeper.cpp"),
             Object(Matching, "Game/Demo/DemoTalkAnimCtrl.cpp"),
             Object(Matching, "Game/Demo/DemoTimeKeeper.cpp", extra_cflags=["-sym off"]),
             Object(Matching, "Game/Demo/DemoWipeKeeper.cpp", extra_cflags=["-sym off"]),
-            Object(NonMatching, "Game/Demo/GrandStarReturnDemoStarter.cpp", extra_cflags=["-sym off"]),
+            Object(
+                NonMatching,
+                "Game/Demo/GrandStarReturnDemoStarter.cpp",
+                extra_cflags=["-sym off"],
+            ),
             Object(Matching, "Game/Demo/PrologueDirector.cpp"),
             Object(Matching, "Game/Demo/ReturnDemoRailMove.cpp"),
             Object(Matching, "Game/Demo/ScenarioStarter.cpp"),
@@ -1510,7 +1536,11 @@ config.libs = [
             Object(Matching, "Game/Map/Air.cpp"),
             Object(NonMatching, "Game/Map/BezierRail.cpp"),
             Object(Matching, "Game/Map/Butterfly.cpp"),
-            Object(Matching, "Game/Map/CollisionCategorizedKeeper.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching,
+                "Game/Map/CollisionCategorizedKeeper.cpp",
+                extra_cflags=["-sym off"],
+            ),
             Object(NonMatching, "Game/Map/CollisionCode.cpp"),
             Object(NonMatching, "Game/Map/CollisionDirector.cpp"),
             Object(Matching, "Game/Map/CollisionParts.cpp", extra_cflags=["-sym off"]),
@@ -1586,7 +1616,9 @@ config.libs = [
             ),
             Object(Matching, "Game/Map/SwitchSynchronizer.cpp"),
             Object(Matching, "Game/Map/SwitchWatcher.cpp"),
-            Object(Matching, "Game/Map/SwitchWatcherHolder.cpp" , extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/Map/SwitchWatcherHolder.cpp", extra_cflags=["-sym off"]
+            ),
             Object(Matching, "Game/Map/TimerSwitch.cpp"),
             Object(Matching, "Game/Map/WaterAreaHolder.cpp"),
             Object(Matching, "Game/Map/WaterInfo.cpp"),
@@ -2001,7 +2033,9 @@ config.libs = [
             Object(Matching, "Game/NPC/TurnJointCtrl.cpp"),
             Object(NonMatching, "Game/NPC/TalkState.cpp"),
             Object(NonMatching, "Game/NPC/TalkSupportPlayerWatcher.cpp"),
-            Object(Matching, "Game/NPC/TalkTextFormer.cpp", extra_cflags=["-DNW4R_DEBUG"]),
+            Object(
+                Matching, "Game/NPC/TalkTextFormer.cpp", extra_cflags=["-DNW4R_DEBUG"]
+            ),
             Object(Matching, "Game/NPC/TimeAttackEventKeeper.cpp"),
         ],
     ),
@@ -2037,7 +2071,11 @@ config.libs = [
             Object(Matching, "Game/NameObj/NameObjFinder.cpp"),
             Object(Matching, "Game/NameObj/NameObjGroup.cpp"),
             Object(Matching, "Game/NameObj/NameObjHolder.cpp"),
-            Object(Matching, "Game/NameObj/NameObjListExecutor.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching,
+                "Game/NameObj/NameObjListExecutor.cpp",
+                extra_cflags=["-sym off"],
+            ),
             Object(Matching, "Game/NameObj/NameObjRegister.cpp"),
         ],
     ),
@@ -2052,7 +2090,11 @@ config.libs = [
             Object(Matching, "Game/Player/JetTurtleShadow.cpp"),
             Object(Matching, "Game/Player/MarineSnow.cpp"),
             Object(NonMatching, "Game/Player/Mario.cpp"),
-            Object(NonMatching, "Game/Player/MarioActor.cpp", extra_cflags=["-opt nolifetimes"]),
+            Object(
+                NonMatching,
+                "Game/Player/MarioActor.cpp",
+                extra_cflags=["-opt nolifetimes"],
+            ),
             Object(NonMatching, "Game/Player/MarioActorDraw.cpp"),
             Object(NonMatching, "Game/Player/MarioActorPunch.cpp"),
             Object(Matching, "Game/Player/MarioActorCamera.cpp"),
@@ -2061,18 +2103,26 @@ config.libs = [
             Object(NonMatching, "Game/Player/MarioActorGravity.cpp"),
             Object(NonMatching, "Game/Player/MarioActorHand.cpp"),
             Object(Matching, "Game/Player/MarioActorInit.cpp"),
-            Object(Matching, "Game/Player/MarioActorPad.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/Player/MarioActorPad.cpp", extra_cflags=["-sym off"]
+            ),
             Object(NonMatching, "Game/Player/MarioActorParts.cpp"),
             Object(Matching, "Game/Player/MarioActorRush.cpp"),
             Object(NonMatching, "Game/Player/MarioActorSensor.cpp"),
             Object(NonMatching, "Game/Player/MarioActorShadow.cpp"),
-            Object(NonMatching, "Game/Player/MarioActorSpecialDraw.cpp", extra_cflags=["-opt nocse"]),
+            Object(
+                NonMatching,
+                "Game/Player/MarioActorSpecialDraw.cpp",
+                extra_cflags=["-opt nocse"],
+            ),
             Object(Matching, "Game/Player/MarioActorMatrix.cpp"),
             Object(NonMatching, "Game/Player/MarioActorMorph.cpp"),
             Object(Matching, "Game/Player/MarioActorEye.cpp"),
             Object(NonMatching, "Game/Player/MarioActorOffensiveMsg.cpp"),
             Object(NonMatching, "Game/Player/MarioActorDefensiveMsg.cpp"),
-            Object(Matching, "Game/Player/MarioActorRushMsg.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/Player/MarioActorRushMsg.cpp", extra_cflags=["-sym off"]
+            ),
             Object(NonMatching, "Game/Player/MarioActorTakeMsg.cpp"),
             Object(NonMatching, "Game/Player/MarioActorBlackHole.cpp"),
             Object(NonMatching, "Game/Player/MarioAnimator.cpp"),
@@ -2135,7 +2185,11 @@ config.libs = [
             Object(NonMatching, "Game/Player/MarioBump.cpp"),
             Object(Matching, "Game/Player/MarioEnforce.cpp"),
             Object(NonMatching, "Game/Player/MarioTask.cpp"),
-            Object(Matching, "Game/Player/MarioTeresa.cpp", extra_cflags=["-opt nocse,nolifetimes"]),
+            Object(
+                Matching,
+                "Game/Player/MarioTeresa.cpp",
+                extra_cflags=["-opt nocse,nolifetimes"],
+            ),
             Object(NonMatching, "Game/Player/MarioMagic.cpp"),
             Object(NonMatching, "Game/Player/MarioWarp.cpp"),
             Object(NonMatching, "Game/Player/MarioFpView.cpp"),
@@ -2180,7 +2234,11 @@ config.libs = [
     GameLib(
         "Ride",
         [
-            Object(Matching, "Game/Ride/BigBubble.cpp", extra_cflags=['-pragma "opt_generateconditionalassignments off"']),
+            Object(
+                Matching,
+                "Game/Ride/BigBubble.cpp",
+                extra_cflags=['-pragma "opt_generateconditionalassignments off"'],
+            ),
             Object(Matching, "Game/Ride/Creeper.cpp"),
             Object(Matching, "Game/Ride/Fluff.cpp"),
             Object(Matching, "Game/Ride/FluffWind.cpp"),
@@ -2192,9 +2250,15 @@ config.libs = [
             Object(Matching, "Game/Ride/SledRopePoint.cpp"),
             Object(Matching, "Game/Ride/SlingShooter.cpp"),
             Object(Matching, "Game/Ride/SpaceCocoon.cpp"),
-            Object(Matching, "Game/Ride/SphereAccelSensorController.cpp", extra_cflags=["-opt nocse"]),
+            Object(
+                Matching,
+                "Game/Ride/SphereAccelSensorController.cpp",
+                extra_cflags=["-opt nocse"],
+            ),
             Object(Matching, "Game/Ride/SphereController.cpp"),
-            Object(Matching, "Game/Ride/SpherePadController.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/Ride/SpherePadController.cpp", extra_cflags=["-sym off"]
+            ),
             Object(Matching, "Game/Ride/SurfRay.cpp"),
             Object(Matching, "Game/Ride/SurfRayTutorial.cpp"),
             Object(Matching, "Game/Ride/SwingRope.cpp"),
@@ -2228,7 +2292,9 @@ config.libs = [
             Object(Matching, "Game/Scene/ScenePlayingResult.cpp"),
             Object(NonMatching, "Game/Scene/SceneNameObjListExecutor.cpp"),
             Object(Matching, "Game/Scene/SceneNameObjMovementController.cpp"),
-            Object(Matching, "Game/Scene/StageDataHolder.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching, "Game/Scene/StageDataHolder.cpp", extra_cflags=["-sym off"]
+            ),
             Object(Matching, "Game/Scene/StageFileLoader.cpp"),
             Object(Matching, "Game/Scene/StageResourceLoader.cpp"),
             Object(Matching, "Game/Scene/StopSceneController.cpp"),
@@ -2307,9 +2373,21 @@ config.libs = [
             Object(Matching, "Game/Screen/LayoutActor.cpp"),
             Object(Matching, "Game/Screen/LayoutActorFlag.cpp"),
             Object(NonMatching, "Game/Screen/LayoutCoreUtil.cpp"),
-            Object(Matching, "Game/Screen/LayoutGroupCtrl.cpp", extra_cflags=["-DNW4R_DEBUG"]),
-            Object(NonMatching, "Game/Screen/LayoutManager.cpp", extra_cflags=["-DNW4R_DEBUG"]),
-            Object(Matching, "Game/Screen/LayoutPaneCtrl.cpp", extra_cflags=["-DNW4R_DEBUG"]),
+            Object(
+                Matching,
+                "Game/Screen/LayoutGroupCtrl.cpp",
+                extra_cflags=["-DNW4R_DEBUG"],
+            ),
+            Object(
+                NonMatching,
+                "Game/Screen/LayoutManager.cpp",
+                extra_cflags=["-DNW4R_DEBUG"],
+            ),
+            Object(
+                Matching,
+                "Game/Screen/LayoutPaneCtrl.cpp",
+                extra_cflags=["-DNW4R_DEBUG"],
+            ),
             Object(Matching, "Game/Screen/LensFlare.cpp"),
             Object(Matching, "Game/Screen/LogoFader.cpp"),
             Object(Matching, "Game/Screen/LuigiLetter.cpp"),
@@ -2345,7 +2423,11 @@ config.libs = [
             Object(NonMatching, "Game/Screen/PurpleCoinCounter.cpp"),
             Object(Matching, "Game/Screen/ReplaceTagProcessor.cpp"),
             Object(Matching, "Game/Screen/SaveIcon.cpp"),
-            Object(NonMatching, "Game/Screen/ScenarioSelectLayout.cpp", mw_version="GC/3.0a3.2"),
+            Object(
+                NonMatching,
+                "Game/Screen/ScenarioSelectLayout.cpp",
+                mw_version="GC/3.0a3.2",
+            ),
             Object(Matching, "Game/Screen/ScenarioTitle.cpp"),
             Object(NonMatching, "Game/Screen/SceneWipeHolder.cpp"),
             Object(Matching, "Game/Screen/ScreenAlphaCapture.cpp"),
@@ -2419,10 +2501,18 @@ config.libs = [
             Object(Matching, "Game/System/GameSystemDimmingWatcher.cpp"),
             Object(Matching, "Game/System/GameSystemErrorWatcher.cpp"),
             Object(Matching, "Game/System/GameSystemException.cpp"),
-            Object(Matching, "Game/System/GameSystemFontHolder.cpp", mw_version="GC/3.0a3.2"),
+            Object(
+                Matching,
+                "Game/System/GameSystemFontHolder.cpp",
+                mw_version="GC/3.0a3.2",
+            ),
             Object(Matching, "Game/System/GameSystemFrameControl.cpp"),
             Object(Matching, "Game/System/GameSystemFunction.cpp"),
-            Object(NonMatching, "Game/System/GameSystemObjHolder.cpp", mw_version="GC/3.0a3.2"),
+            Object(
+                NonMatching,
+                "Game/System/GameSystemObjHolder.cpp",
+                mw_version="GC/3.0a3.2",
+            ),
             Object(Matching, "Game/System/GameSystemStationedArchiveLoader.cpp"),
             Object(NonMatching, "Game/System/GameSystemSceneController.cpp"),
             Object(NonMatching, "Game/System/GameSystemResetAndPowerProcess.cpp"),
@@ -2532,7 +2622,9 @@ config.libs = [
             Object(Matching, "Game/Util/HashUtil.cpp"),
             Object(NonMatching, "Game/Util/JMapUtil.cpp"),
             Object(Matching, "Game/Util/JointUtil.cpp"),
-            Object(NonMatching, "Game/Util/LayoutUtil.cpp", extra_cflags=["-DNW4R_DEBUG"]),
+            Object(
+                NonMatching, "Game/Util/LayoutUtil.cpp", extra_cflags=["-DNW4R_DEBUG"]
+            ),
             Object(Matching, "Game/Util/LightUtil.cpp"),
             Object(NonMatching, "Game/Util/LiveActorUtil.cpp"),
             Object(Matching, "Game/Util/MapPartsUtil.cpp"),
@@ -2562,7 +2654,11 @@ config.libs = [
             Object(NonMatching, "Game/Util/SystemUtil.cpp"),
             Object(Matching, "Game/Util/TalkUtil.cpp"),
             Object(NonMatching, "Game/Util/AreaObjUtil.cpp"),
-            Object(Matching, "Game/Util/BaseMatrixFollowTargetHolder.cpp", extra_cflags=["-sym off"]),
+            Object(
+                Matching,
+                "Game/Util/BaseMatrixFollowTargetHolder.cpp",
+                extra_cflags=["-sym off"],
+            ),
             Object(Matching, "Game/Util/BezierSurface.cpp"),
             Object(Matching, "Game/Util/BothDirList.cpp"),
             Object(Matching, "Game/Util/CollisionPartsFilter.cpp"),
@@ -3033,6 +3129,7 @@ config.libs = [
             Object(Matching, "MSL_C/wmem.c"),
             Object(Matching, "MSL_C/wstring.c"),
             Object(Matching, "MSL_C/wchar_io.c"),
+            Object(Matching, "MSL_C/wctype.c"),
             Object(Matching, "MSL_C/uart_console_io_gcn.c"),
             Object(Matching, "MSL_C/abort_exit_ppc_eabi.c"),
             Object(Matching, "MSL_C/math_sun.c"),
@@ -3156,8 +3253,9 @@ config.libs = [
             ),
             Object(Matching, "MetroTRK/debugger/embedded/MetroTRK/Export/mslsupp.c"),
             Object(
-                Matching, 
-                "MetroTRK/debugger/embedded/MetroTRK/Processor/ppc/Generic/exception.s"),
+                Matching,
+                "MetroTRK/debugger/embedded/MetroTRK/Processor/ppc/Generic/exception.s",
+            ),
             Object(
                 Matching,
                 "MetroTRK/debugger/embedded/MetroTRK/Os/dolphin/dolphin_trk.c",
@@ -3256,7 +3354,11 @@ config.libs = [
                 "JSystem/J3DGraphAnimator/J3DSkinDeform.cpp",
                 extra_cflags=["-ipa file", "-sym on"],
             ),
-            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DCluster.cpp", extra_cflags=["-ipa file"]),
+            Object(
+                NonMatching,
+                "JSystem/J3DGraphAnimator/J3DCluster.cpp",
+                extra_cflags=["-ipa file"],
+            ),
             Object(
                 Matching,
                 "JSystem/J3DGraphAnimator/J3DJoint.cpp",
@@ -3384,7 +3486,9 @@ config.libs = [
             Object(Matching, "JSystem/JAudio2/JASTaskThread.cpp"),
             Object(Matching, "JSystem/JAudio2/JASDvdThread.cpp"),
             Object(Matching, "JSystem/JAudio2/JASCallback.cpp"),
-            Object(Matching, "JSystem/JAudio2/JASHeapCtrl.cpp", mw_version="GC/3.0a3.2"),
+            Object(
+                Matching, "JSystem/JAudio2/JASHeapCtrl.cpp", mw_version="GC/3.0a3.2"
+            ),
             Object(Matching, "JSystem/JAudio2/JASResArcLoader.cpp"),
             Object(Matching, "JSystem/JAudio2/JASProbe.cpp"),
             Object(NonMatching, "JSystem/JAudio2/JASReport.cpp"),
@@ -3568,9 +3672,10 @@ config.libs = [
         [
             Object(Matching, "JSystem/JParticle/JPAResourceManager.cpp"),
             Object(Matching, "JSystem/JParticle/JPAResource.cpp"),
-            Object(NonMatching, 
+            Object(
+                NonMatching,
                 "JSystem/JParticle/JPABaseShape.cpp",
-                extra_cflags=["-sym on"]
+                extra_cflags=["-sym on"],
             ),
             Object(
                 Matching,
