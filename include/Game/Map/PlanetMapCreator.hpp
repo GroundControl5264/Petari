@@ -5,6 +5,14 @@
 class NameObjArchiveListCollector;
 
 struct PlanetMapData {
+    inline const char* getData(s32 index) const {
+        return mData[index];
+    }
+
+    void setData(s32 index, const char* pValue) {
+        mData[index] = pValue;
+    }
+
     /* 0x00 */ const char* mPlanetName;
     /* 0x04 */ const char* mData[5];
     /* 0x18 */ const char* mForceScenarioData[8];

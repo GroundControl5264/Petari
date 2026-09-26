@@ -18,13 +18,6 @@ void GalaxyMapDomeIcon_FORCE_MATCH(LayoutActor* pLayout) {
 }
 
 namespace {
-    template < typename T >
-    inline void checkGalaxy(JMapInfoIter iter, const JMapInfo& rInfo, T& rChecker) {
-        for (JMapInfoIter current = iter; current != rInfo.end(); current.mIndex++) {
-            rChecker(current);
-        }
-    }
-
     class AstroDomeCheckerBase {
     public:
         AstroDomeCheckerBase(int param1);
@@ -138,7 +131,10 @@ bool GalaxyMapDomeIcon::isComplete() const {
 
     CheckerIsComplete checker = CheckerIsComplete(_20);
 
-    checkGalaxy(mapInfo.begin(), mapInfo, checker);
+    JMapInfoIter begin = mapInfo.begin();
+    for (JMapInfoIter current = begin; current != mapInfo.end(); current.mIndex++) {
+        checker(current);
+    }
 
     return checker.mIsPass;
 }
@@ -196,7 +192,10 @@ bool GalaxyMapDomeIcon::hasNewGalaxy() const {
 
     CheckerIsExistNewGalaxy checker = CheckerIsExistNewGalaxy(_20);
 
-    checkGalaxy(mapInfo.begin(), mapInfo, checker);
+    JMapInfoIter begin = mapInfo.begin();
+    for (JMapInfoIter current = begin; current != mapInfo.end(); current.mIndex++) {
+        checker(current);
+    }
 
     return checker.mIsPass;
 }

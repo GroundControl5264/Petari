@@ -353,8 +353,8 @@ void PlanetMapCreator::addTableData(const JMapInfo* pInfo, s32 idx) {
 
     for (int i = 0; i < 5; i++) {
         if (curData->mData[i] != nullptr) {
-            if (!MR::isExistModel(curData->mData[i])) {
-                curData->mData[i] = nullptr;
+            if (!MR::isExistModel(curData->getData(i))) {
+                curData->setData(i, nullptr);
             }
         }
     }

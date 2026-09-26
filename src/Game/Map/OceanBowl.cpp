@@ -432,8 +432,10 @@ void OceanBowl::loadMaterial() const {
     GXLoadTexMtxImm(mat, GX_TEXMTX2, GX_MTX2x4);
     f32 a = (getPoint(0, 0)->mVertexPosition.x - MR::getPlayerPos()->x) + 2400.0f;
     f32 b = (getPoint(0, 0)->mVertexPosition.z - MR::getPlayerPos()->z) + 2400.0f;
-    mat[0][2] = b / 4800.0f;
-    mat[1][2] = a / 4800.0f;
+    f32 c = a / 4800.0f;
+    f32 d = b / 4800.0f;
+    mat[0][2] = d;
+    mat[1][2] = c;
     GXLoadTexMtxImm(mat, GX_TEXMTX4, GX_MTX2x4);
     MR::loadTexProjectionMtx(39);
     mWaterTex->load(GX_TEXMAP0);

@@ -42,18 +42,18 @@ void GameSystemObjHolder::initAfterStationedResourceLoaded() {
 }
 
 void GameSystemObjHolder::initMessageResource() {
-    JKRArchive* archive = nullptr;
-    JKRHeap* heap = nullptr;
-    MR::getMountedArchiveAndHeap("ErrorMessageArchive.arc", &archive, &heap);
+    JKRArchive* pArchive = nullptr;
+    JKRHeap* pHeap = nullptr;
+    MR::getMountedArchiveAndHeap("ErrorMessageArchive.arc", &pArchive, &pHeap);
 
     char systemMessagePath[128];
     snprintf(systemMessagePath, sizeof(systemMessagePath), "/%s/MessageData/System.arc", MR::getCurrentLanguagePrefix());
 
-    void* systemMessageArchive = MR::decompressFileFromArchive(archive, systemMessagePath, nullptr, 0);
-    MR::createAndAddArchive(systemMessageArchive, heap, "/Memory/SystemMessage.arc");
+    void* pSystemMessageArchive = MR::decompressFileFromArchive(pArchive, systemMessagePath, nullptr, 0);
+    MR::createAndAddArchive(pSystemMessageArchive, pHeap, "/Memory/SystemMessage.arc");
 
-    void* errorMessageWindowArchive = MR::decompressFileFromArchive(archive, "/LayoutData/ErrorMessageWindow.arc", heap, 32);
-    MR::createAndAddArchive(errorMessageWindowArchive, heap, "/Memory/ErrorMessageWindow.arc");
+    void* pErrorMessageWindowArchive = MR::decompressFileFromArchive(pArchive, "/LayoutData/ErrorMessageWindow.arc", pHeap, 32);
+    MR::createAndAddArchive(pErrorMessageWindowArchive, pHeap, "/Memory/ErrorMessageWindow.arc");
 
     MR::createAndAddLayoutHolderRawData("/Memory/ErrorMessageWindow.arc");
 
@@ -122,7 +122,7 @@ void GameSystemObjHolder::initNAND() {
 }
 
 void GameSystemObjHolder::initAudio() {
-    mAudioSystem = new AudSystemWrapper(SingletonHolder< HeapMemoryWatcher >::get()->mAudSystemHeap, MR::getStationedHeapNapa());
+    mAudioSystem = new AudSystemWrapper(SingletonHolder< HeapMemoryWatcher >::get()->getAudSystemHeap(), MR::getStationedHeapNapa());
     mAudioSystem->requestResourceForInitialize();
 }
 
@@ -162,16 +162,16 @@ void GameSystemObjHolder::initStarPointerDirector() {
 }
 
 void GameSystemObjHolder::initDisplay() {
-    MainLoopFramework* manager;
+    MainLoopFramework* pManager;
     s32 size = MR::getRequiredExternalFrameBufferSize();
-    JKRHeap* stationedHeap = MR::getStationedHeapGDDR3();
+    JKRHeap* pStationedHeap = MR::getStationedHeapGDDR3();
 
-    _C = new (stationedHeap, 32) u8[size];
-    _10 = new (stationedHeap, 32) u8[size];
-    _14 = new (stationedHeap, 32) u8[size];
+    _C = new (pStationedHeap, 32) u8[size];
+    _10 = new (pStationedHeap, 32) u8[size];
+    _14 = new (pStationedHeap, 32) u8[size];
 
-    manager = MainLoopFramework::createManager(nullptr, _C, _10, _14, true);
-    manager->mClearColor = (GXColor){30, 30, 200, 0};
+    pManager = MainLoopFramework::createManager(nullptr, _C, _10, _14, true);
+    pManager->setClearColor(Color8(30, 30, 200, 0));
 
     mCaptureScreenDirector = new CaptureScreenDirector();
     mScreenPreserver = new ScreenPreserver();

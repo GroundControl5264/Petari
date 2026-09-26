@@ -14,9 +14,9 @@
 OceanRingPipe::~OceanRingPipe() {
 }
 
-OceanRingPipe::OceanRingPipe(const OceanRing* ring, f32 a, f32 b)
-    : LiveActor("オーシャンリングの側面"), mOceanRing(ring), _90(0), _94(0), _98(0), _9C(8), _A0(0), _A4(0), _A8(a), _AC(b), mPipeInside(0),
-      mPipeOutside(0) {
+OceanRingPipe::OceanRingPipe(const OceanRing* pRing, f32 a, f32 b)
+    : LiveActor("オーシャンリングの側面"), mOceanRing(pRing), _90(), _94(), _98(), _9C(8), _A0(), _A4(), _A8(a), _AC(b), mPipeInside(),
+      mPipeOutside() {
 }
 
 void OceanRingPipe::init(const JMapInfoIter& rIter) {
@@ -37,8 +37,9 @@ void OceanRingPipe::init(const JMapInfoIter& rIter) {
         for (s32 i = 0; i < _98; i += 7) {
             TVec3f grav(0.0f, -1.0f, 0.0f);
             MR::calcGravityVector(this, _A0[calcPointIndex(i, 0)], &grav, nullptr, 0);
-            if (grav.y > -0.9f)
+            if (grav.y > -0.9f) {
                 continue;
+            }
 
             if (i & 1) {
                 MR::setClippingFarMax(MR::createMapFlag("旗", "FlagSurfing", &_A0[calcPointIndex(i, 0)], vec, f28, f30, f29, 2, 3, -1.0f));
@@ -55,6 +56,7 @@ void OceanRingPipe::movement() {
     if (!MR::isValidMovement(this)) {
         return;
     }
+
     mPipeOutside->movement();
     if (WaterAreaFunction::getCameraWaterInfo()->mOceanRing == mOceanRing) {
         _90 = true;
@@ -102,13 +104,7 @@ void OceanRingPipe::initPoints() {
         TVec3f v1(side);
 
         if (sumDist > 0.0f) {
-            // FIXME: Regswaps
-            f32 f33 = flt * nextDist;
-            f32 f34 = flt2 * currDist;
-            f32 f35 = f33 + f34;
-            f32 diva = (f35 / sumDist);
-            f32 divb = (_AC / 100.0f);
-            f3 = diva / divb;
+            f3 = ((flt * nextDist + flt2 * currDist) / sumDist) / (_AC / 100.0f);
             f32 fff = flt - flt2;
 
             if (MR::abs(fff) > 0.0001f) {
@@ -142,6 +138,7 @@ void OceanRingPipe::initPoints() {
             mtx.mult(side, side);
             mtx.mult(v1, v1);
         }
+
         MR::moveCoord(this, length);
     }
 }

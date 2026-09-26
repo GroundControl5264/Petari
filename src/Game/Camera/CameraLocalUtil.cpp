@@ -371,6 +371,9 @@ namespace CameraLocalUtil {
         return true;
     }
 
+#pragma push
+#pragma opt_propagation off
+
     void arrangeDistanceByFovy(Camera* pCamera, TVec3f pos, f32 offset) {
         // FIXME: regswaps
         // https://decomp.me/scratch/jeret
@@ -390,6 +393,7 @@ namespace CameraLocalUtil {
             setPos(pCamera, viewDir * dist + getWatchPos(pCamera));
         }
     }
+#pragma pop
 
     void arrangeDistanceByPushAndPull(Camera* pCamera, f32 push, f32 pull) {
         TVec3f viewDir = getPos(pCamera) - getWatchPos(pCamera);

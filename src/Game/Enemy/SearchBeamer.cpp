@@ -25,6 +25,14 @@ namespace NrvSearchBeamer {
     NEW_NERVE_ONEND(SearchBeamerNrvDPDSwoon, SearchBeamer, DPDSwoon, DPDSwoon);
 };  // namespace NrvSearchBeamer
 
+namespace {
+    inline void calcPlayerAimPos(TVec3f* pPos) {
+        TVec3f up;
+        MR::getPlayerUpVec(&up);
+        pPos->scaleAdd(-20.0f, up, *MR::getPlayerCenterPos());
+    }
+}  // namespace
+
 SearchBeamer::SearchBeamer(const char* pName) : LiveActor(pName) {
     mScaleController = nullptr;
     mBindStarPointer = nullptr;
@@ -194,15 +202,13 @@ void SearchBeamer::exeBeamStart() {
     }
 }
 
-// TODO -- stack issues
 void SearchBeamer::exeBeamAim() {
     MR::startLevelSound(this, "SE_EM_LV_SEARCHBEAMER_BEAM");
     MR::copyJointPos(this, "Core", &mBeamStart);
-    TVec3f v14;
-    TVec3f up;
-    MR::getPlayerUpVec(&up);
 
-    v14.scaleAdd(-20.0f, up, *MR::getPlayerCenterPos());
+    TVec3f v14;
+    ::calcPlayerAimPos(&v14);
+
     TVec3f v13;
     v13.sub(v14, mPosition);
     MR::normalize(&v13);
@@ -466,17 +472,17 @@ void SearchBeamer::reformDirection(bool a1) {
     }
 }
 
-// TODO -- stack issues
 void SearchBeamer::bowToPlayer() {
-    TVec3f v6;
-    MR::getPlayerUpVec(&v6);
     TVec3f v12;
-    v12.scaleAdd(-20.0f, v6, *MR::getPlayerCenterPos());
+    ::calcPlayerAimPos(&v12);
     TVec3f v11;
     v11.sub(v12, mPosition);
     v11.orthogonalize2(_A0);
     MR::normalize(&v11);
-    MR::turnVecToVecDegree(&v11, v11, -_A0, 35.0f, TVec3f(0, 1, 0));
+
+    TVec3f down;
+    down.negate(_A0);
+    MR::turnVecToVecDegree(&v11, v11, down, 35.0f, TVec3f(0, 1, 0));
     MR::turnVecToVecDegree(&_94, _94, v11, 3.0f, TVec3f(0, 1, 0));
     TVec3f v9;
     MR::turnVecToPlane(&v9, _94, _A0);

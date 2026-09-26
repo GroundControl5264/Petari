@@ -17,6 +17,9 @@ void CameraSpiral::reset() {
     mTimer = 0;
 }
 
+#pragma push
+#pragma opt_propagation off
+
 CameraTargetObj* CameraSpiral::calc() {
     TVec3f watchPoint;
     CameraLocalUtil::makeWatchPoint(&watchPoint, this, CameraLocalUtil::getTarget(this), 0.1f / 15.0f);
@@ -76,12 +79,13 @@ CameraTargetObj* CameraSpiral::calc() {
     CameraLocalUtil::setUpVec(this, up);
     CameraLocalUtil::setWatchUpVec(this, CameraLocalUtil::getTarget(this)->getUpVec());
 
-    if (++mTimer > mEndTime) {
+    if ((mTimer += 1) > mEndTime) {
         mTimer = mEndTime;
     }
 
     return CameraLocalUtil::getTarget(this);
 }
+#pragma pop
 
 CamTranslatorBase* CameraSpiral::createTranslator() {
     return new CamTranslatorSpiral(this);

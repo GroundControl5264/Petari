@@ -24,6 +24,10 @@
 #include "math_types.hpp"
 
 namespace {
+    inline void resetBodySensorOffset(LiveActor* pActor) {
+        MR::setSensorOffset(pActor, "body", TVec3f(0.0f, 0.0f, 0.0f));
+    }
+
     NEW_NERVE_ONEND(MogucchiNrvStroll, Mogucchi, Stroll, Stroll);
     NEW_NERVE(MogucchiNrvAppearDown, Mogucchi, AppearDown);
     NEW_NERVE(MogucchiNrvDown, Mogucchi, Down);
@@ -38,8 +42,8 @@ namespace {
 };  // namespace
 
 Mogucchi::Mogucchi(const char* pName)
-    : LiveActor(pName), mHill(nullptr), mHole(nullptr), mGrounded(false), mScatterPropulsionSpeed(0.0f), mScatterNormal(0.0f, 0.0f, 1.0f), _E4(0.0f),
-      mStrollSpeed(0.0f), mMaxStrollSpeed(5.0f), mIsStoppedByP2(false) {
+    : LiveActor(pName), mHill(), mHole(), mGrounded(), mScatterPropulsionSpeed(), mScatterNormal(0.0f, 0.0f, 1.0f), _E4(), mStrollSpeed(),
+      mMaxStrollSpeed(5.0f), mIsStoppedByP2() {
     mNewHolePos.identity();
 }
 
@@ -88,9 +92,11 @@ void Mogucchi::makeActorAppeared() {
 
 void Mogucchi::kill() {
     LiveActor::kill();
+
     if (MR::isValidSwitchDead(this)) {
         MR::onSwitchDead(this);
     }
+
     setNerve(GET_NERVE_ANON(MogucchiNrvDie));
 
     if (!MR::isDead(mHole)) {
@@ -148,8 +154,7 @@ void Mogucchi::exeAppearDown() {
         MR::startSound(this, "SE_EM_MOGUCCHI_APPEAR");
         MR::startSound(this, "SE_EV_MOGUCCHI_SWOON");
 
-        // stack swap with the inner TVec3f
-        MR::setSensorOffset(this, "body", TVec3f(0.0f, 0.0f, 0.0f));
+        ::resetBodySensorOffset(this);
         MR::setSensorOffset(this, "spin", TVec3f(0.0f, 0.0f, 0.0f));
     }
 
@@ -163,6 +168,7 @@ void Mogucchi::exeDown() {
         MR::startBtp(this, "EyeClose");
         MR::startBck(mHole, "Swoon");
     }
+
     MR::startLevelSound(this, "SE_EM_LV_SWOON_S");
     MR::setNerveAtStep(this, GET_NERVE_ANON(MogucchiNrvDive), 30);
 }
@@ -200,7 +206,7 @@ void Mogucchi::exeScatter() {
         mtx.setYDir(-mRailGravity);
         mtx.setZDir(-mScatterNormal);
         mtx.getEulerXYZ(mRotation);
-        mRotation.mult(_180_PI);
+        mRotation.mult(180.0f / PI);
     }
 
     mPosition.add(mRailGravity.scaleInline(-mScatterPropulsionSpeed) + mScatterNormal.multInLine(23.0f));
@@ -238,10 +244,12 @@ void Mogucchi::attackSensor(HitSensor* pSender, HitSensor* pReceiver) {
 
         TVec3f attackDir;
         calcAttackDir(&attackDir, pSender->mPosition, pReceiver->mPosition);
+
         if (MR::sendMsgEnemyAttackStrongToDir(pReceiver, pSender, attackDir)) {
             MR::shakeCameraNormal();
             return;
         }
+
         MR::sendMsgPush(pReceiver, pSender);
     }
 }
@@ -257,7 +265,7 @@ bool Mogucchi::receiveMsgPlayerAttack(u32 msg, HitSensor* pSender, HitSensor* pR
 void Mogucchi::initSensor() {
     LiveActor::initHitSensor(3);
     MR::addHitSensorAtJointEnemy(this, "head", "Head", 32, 83.0f, TVec3f(::sHeadOffset));
-    MR::addHitSensorAtJointEnemy(this, "body", "Spine", 32, 83.0f, TVec3f(::sBodyOffset));
+    MR::addHitSensorAtJointEnemy(this, "body", "Spine", 32, 120.0f, TVec3f(::sBodyOffset));
     MR::addHitSensorEnemy(this, "spin", 16, 180.0f, TVec3f(0.0f, 0.0f, 0.0f));
 }
 
@@ -331,8 +339,8 @@ void Mogucchi::createHole() {
     mHole->initWithoutIter();
 }
 
-void Mogucchi::calcAttackDir(TVec3f* pDir, const TVec3f& senderPos, const TVec3f& receiverPos) const {
-    pDir->sub(receiverPos, senderPos);
+void Mogucchi::calcAttackDir(TVec3f* pDir, const TVec3f& rSenderPos, const TVec3f& rReceiverPos) const {
+    pDir->sub(rReceiverPos, rSenderPos);
     pDir->orthogonalize(mRailGravity);
     MR::normalizeOrZero(pDir);
 
@@ -348,11 +356,11 @@ void Mogucchi::makeEulerRotation() {
     TPos3f mtx;
     MR::makeMtxUpFront(&mtx, -mRailGravity, MR::getRailDirection(this));
     mtx.getEulerXYZ(mRotation);
-    mRotation.mult(_180_PI);
+    mRotation.mult(180.0f / PI);
 }
 
-void Mogucchi::calcScatterVec(const TVec3f& p1, const TVec3f& p2) {
-    mScatterNormal.sub(p2, p1);
+void Mogucchi::calcScatterVec(const TVec3f& rStart, const TVec3f& rEnd) {
+    mScatterNormal.sub(rEnd, rStart);
     mScatterNormal.orthogonalize(mRailGravity);
     MR::normalizeOrZero(&mScatterNormal);
 }
