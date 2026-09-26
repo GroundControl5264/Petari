@@ -3033,6 +3033,7 @@ config.libs = [
             Object(Matching, "MSL_C/wmem.c"),
             Object(Matching, "MSL_C/wstring.c"),
             Object(Matching, "MSL_C/wchar_io.c"),
+            Object(Matching, "MSL_C/wctype.c"),
             Object(Matching, "MSL_C/uart_console_io_gcn.c"),
             Object(Matching, "MSL_C/abort_exit_ppc_eabi.c"),
             Object(Matching, "MSL_C/math_sun.c"),
